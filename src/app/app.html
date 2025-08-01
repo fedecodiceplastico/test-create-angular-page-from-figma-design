@@ -1,0 +1,15 @@
+<div class="app-container">
+  <app-header [driver]="driver"></app-header>
+  
+  <app-navigation-tabs 
+    [activeTab]="activeTab" 
+    (tabChange)="onTabChange($event)">
+  </app-navigation-tabs>
+  
+  <app-giro-info 
+    [giroInfo]="giroInfo" 
+    (toggleChange)="onToggleChange($event)">
+  </app-giro-info>
+  
+  <app-timeline [requests]="(requests$ | async) || []"></app-timeline>
+</div>

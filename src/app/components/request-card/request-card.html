@@ -1,0 +1,36 @@
+<div class="request-card" [class.completed]="request.status === 'completed'">
+  <div class="card-header">
+    <div class="company-info">
+      <h3 class="company-name">{{ request.companyName }}</h3>
+      <span class="request-number">NR. {{ request.number }}</span>
+    </div>
+    <div class="address-info">
+      <span class="address">{{ request.address }}</span>
+      <span class="ztl-badge" *ngIf="request.isZTL">ZTL</span>
+    </div>
+  </div>
+  
+  <div class="divider"></div>
+  
+  <div class="arrival-info">
+    <span class="arrival-text">Arrivo previsto: {{ request.expectedArrival }}</span>
+  </div>
+  
+  <div class="divider"></div>
+  
+  <div class="waste-info">
+    <div class="waste-header">
+      <span class="waste-type-label">Tipologia rifiuto</span>
+      <span class="box-label">BOX</span>
+      <span class="weight-label">peso</span>
+      <span class="volume-label">vol.</span>
+    </div>
+    
+    <div class="waste-details" *ngFor="let waste of request.wasteTypes">
+      <span class="waste-name">{{ waste.name }}</span>
+      <span class="waste-quantity">{{ waste.quantity }}</span>
+      <span class="waste-weight">{{ waste.weight }}</span>
+      <span class="waste-volume">{{ waste.volume }}</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,171 @@
+.request-card {
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  padding: 12px;
+  margin-bottom: 16px;
+  
+  &.completed {
+    background-color: white;
+    border: 1px solid #000000;
+    
+    .company-name,
+    .request-number,
+    .address,
+    .arrival-text,
+    .waste-type-label,
+    .box-label,
+    .weight-label,
+    .volume-label,
+    .waste-name,
+    .waste-quantity,
+    .waste-weight,
+    .waste-volume {
+      color: #000000;
+    }
+    
+    .divider {
+      border-color: #000000;
+    }
+    
+    .ztl-badge {
+      background-color: #363636;
+    }
+  }
+}
+
+.card-header {
+  margin-bottom: 12px;
+}
+
+.company-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.company-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21.6px;
+  color: #606060;
+  margin: 0;
+  flex: 1;
+}
+
+.request-number {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19.2px;
+  color: #606060;
+}
+
+.address-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.address {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14.4px;
+  color: #606060;
+  flex: 1;
+}
+
+.ztl-badge {
+  background-color: #b3b3b3;
+  color: white;
+  font-family: 'Barlow', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 16px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  text-align: center;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #606060;
+  margin: 12px 0;
+}
+
+.arrival-info {
+  margin-bottom: 12px;
+}
+
+.arrival-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14.4px;
+  color: #606060;
+}
+
+.waste-info {
+  margin-top: 12px;
+}
+
+.waste-header {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  gap: 12px;
+  margin-bottom: 8px;
+  padding-right: 12px;
+}
+
+.waste-type-label,
+.box-label,
+.weight-label,
+.volume-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16.8px;
+  color: #606060;
+}
+
+.box-label,
+.weight-label,
+.volume-label {
+  text-align: right;
+  width: 35px;
+}
+
+.volume-label {
+  width: 29px;
+}
+
+.waste-details {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  gap: 12px;
+  padding-right: 12px;
+}
+
+.waste-name,
+.waste-quantity,
+.waste-weight,
+.waste-volume {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14.4px;
+  color: #606060;
+}
+
+.waste-quantity,
+.waste-weight,
+.waste-volume {
+  text-align: right;
+  width: 35px;
+}
+
+.waste-volume {
+  width: 29px;
+}

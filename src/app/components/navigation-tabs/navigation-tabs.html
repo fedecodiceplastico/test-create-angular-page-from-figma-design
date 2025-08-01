@@ -1,0 +1,16 @@
+<div class="navigation-tabs">
+  <button 
+    class="tab-button" 
+    [class.active]="activeTab === 'calendar'"
+    (click)="setActiveTab('calendar')">
+    <span class="tab-icon">📅</span>
+    <span class="tab-text">RITIRI PIANIFICATI (5)</span>
+  </button>
+  <button 
+    class="tab-button" 
+    [class.active]="activeTab === 'list'"
+    (click)="setActiveTab('list')">
+    <span class="tab-icon">��</span>
+    <span class="tab-text">FUORI GIRO (4)</span>
+  </button>
+</div>

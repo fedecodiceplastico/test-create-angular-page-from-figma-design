@@ -1,0 +1,99 @@
+.giro-info {
+  padding: 12px;
+  background-color: white;
+}
+
+.giro-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 28.8px;
+  color: #000000;
+  margin: 0 0 12px 0;
+}
+
+.toggle-section {
+  margin-bottom: 12px;
+}
+
+.switch-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.switch-input {
+  display: none;
+}
+
+.switch-slider {
+  position: relative;
+  width: 44px;
+  height: 20px;
+  background-color: #98a2b3;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 1px solid #d3dae6;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+}
+
+.switch-input:checked + .switch-slider {
+  background-color: #000000;
+  
+  &::after {
+    transform: translateX(24px);
+    border-color: #000000;
+  }
+}
+
+.switch-text {
+  color: #000000;
+}
+
+.date-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21.6px;
+  color: #000000;
+}
+
+.progress-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.progress-icon {
+  font-size: 16px;
+  color: #000000;
+}
+
+.progress-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21.6px;
+  color: #000000;
+}

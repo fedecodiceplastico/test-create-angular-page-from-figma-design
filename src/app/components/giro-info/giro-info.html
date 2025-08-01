@@ -1,0 +1,23 @@
+<div class="giro-info">
+  <h2 class="giro-name">{{ giroInfo.name }}</h2>
+  
+  <div class="toggle-section">
+    <label class="switch-container">
+      <input 
+        type="checkbox" 
+        [(ngModel)]="giroInfo.showCompleted"
+        (change)="onToggleChange()"
+        class="switch-input">
+      <span class="switch-slider"></span>
+      <span class="switch-text">Mostra prese già effettuate</span>
+    </label>
+  </div>
+  
+  <div class="date-info">
+    <span class="date-text">{{ giroInfo.date }}: {{ giroInfo.week }}</span>
+    <div class="progress-info">
+      <span class="progress-icon">✓</span>
+      <span class="progress-text">{{ giroInfo.completed }}/{{ giroInfo.total }}</span>
+    </div>
+  </div>
+</div>

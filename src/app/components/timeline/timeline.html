@@ -1,0 +1,17 @@
+<div class="timeline">
+  <div class="timeline-container">
+    <div class="timeline-line"></div>
+    
+    <div 
+      class="timeline-item" 
+      *ngFor="let request of requests; let i = index"
+      [class.completed]="request.status === 'completed'">
+      
+      <div class="timeline-dot" [class.completed]="request.status === 'completed'"></div>
+      
+      <div class="timeline-content">
+        <app-request-card [request]="request"></app-request-card>
+      </div>
+    </div>
+  </div>
+</div>
