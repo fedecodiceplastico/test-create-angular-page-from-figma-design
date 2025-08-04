@@ -1,0 +1,200 @@
+<div class="ristorni-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="header-left">
+      <h1>Calcola Ristorni - Anno 2024</h1>
+      <p class="last-save">Ultimo salvataggio: 00/00/0000 - 00:00</p>
+    </div>
+    <div class="header-right">
+      <button class="btn btn-primary">
+        <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 0L8 8L16 4L8 0ZM0 8L8 12L8 4L0 8Z"/>
+        </svg>
+        Esporta
+      </button>
+    </div>
+  </div>
+
+  <!-- Form Section -->
+  <div class="form-section">
+    <div class="form-fields">
+      <div class="field-group">
+        <label>Importo iniziale:</label>
+        <div class="input-wrapper blue-bg">
+          <span class="currency">€</span>
+          <input type="text" [(ngModel)]="importoIniziale" [value]="importoIniziale | number:'1.2-2':'it'" readonly>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Massimo ristornabile:</label>
+        <div class="input-wrapper red-bg">
+          <span class="currency">€</span>
+          <input type="text" [(ngModel)]="massimoRistornabile" [value]="massimoRistornabile | number:'1.2-2':'it'" readonly>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <div class="switch-group">
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="includiAutonomi" (change)="onFilterChange()">
+            <span class="slider"></span>
+          </label>
+          <span>Includi autonomi</span>
+        </div>
+      </div>
+
+      <button class="btn btn-secondary" (click)="onCalculateClick()">Calcola</button>
+    </div>
+
+    <div class="stats-section">
+      <div class="stat-item">
+        <span class="stat-label">Soci Lavoratori</span>
+        <span class="stat-value">{{ sociLavoratori }}</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stat-item">
+        <span class="stat-label">Autonomi</span>
+        <span class="stat-value">{{ autonomi }}</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stat-item">
+        <span class="stat-label">Totale da formula</span>
+        <span class="stat-value">€ {{ totaleDaFormula | number:'1.2-2':'it' }}</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stat-item highlight">
+        <span class="stat-label">Totale Ristorni</span>
+        <span class="stat-value">€ {{ totaleRistorni | number:'1.2-2':'it' }}</span>
+        <svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="#00bfb3">
+          <circle cx="8" cy="8" r="8"/>
+          <path d="M5 8l2 2 4-4" stroke="white" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table Section -->
+  <div class="table-container">
+    <!-- Barra dei filtri -->
+    <div class="filter-bar">
+      <div class="filter-group">
+        <label>Filtro per Intestazione</label>
+        <input type="text" [(ngModel)]="searchTerm" (input)="onFilterChange()" placeholder="Cerca per intestazione">
+      </div>
+      <div class="filter-group">
+        <label>Stato</label>
+        <select [(ngModel)]="statusFilter" (change)="onFilterChange()">
+          <option value="">Tutti</option>
+          <option value="ACCETTATO">ACCETTATO</option>
+          <option value="RIFIUTATO">RIFIUTATO</option>
+          <option value="ANNULLATO">ANNULLATO</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <button class="export-btn" (click)="exportToExcel()">📊 Esporta Excel</button>
+      </div>
+    </div>
+    
+    <table class="ristorni-table">
+      <thead>
+        <tr>
+          <th>Stato</th>
+          <th>Intestazione</th>
+          <th>Tipo</th>
+          <th>Ore presenza</th>
+          <th>Socio da giorni</th>
+          <th>Imponibile</th>
+          <th>R. Calcolato</th>
+          <th class="highlight-red">Max</th>
+          <th>Ristorno</th>
+          <th class="highlight-border">R. Erogato</th>
+          <th class="highlight-yellow">R. a Cedolino</th>
+          <th class="highlight-purple">R. Netti a Capitale</th>
+          <th class="highlight-green">R. Lordi</th>
+          <th>Ritenuta 12,50%</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of paginatedData" class="data-row">
+          <td>
+            <div class="status-indicator" [class.active]="item.stato === 'active'">
+              <span class="dot"></span>
+              {{ item.stato === 'active' ? 'Attivo' : 'Inattivo' }}
+            </div>
+          </td>
+          <td>{{ item.intestazione }}</td>
+          <td>
+            <span class="tipo-badge" [class.autonomo]="item.isAutonomo">
+              {{ item.isAutonomo ? 'Autonomo' : 'Socio Lavoratore' }}
+            </span>
+          </td>
+          <td class="number">{{ item.orePresenza | number:'1.2-2':'it' }}</td>
+          <td class="number">{{ item.socioDaGiorni }}</td>
+          <td class="number">€ {{ item.imponibile | number:'1.2-2':'it' }}</td>
+          <td class="number">€ {{ item.rCalcolato | number:'1.2-2':'it' }}</td>
+          <td class="number highlight-red-bg">€ {{ item.max | number:'1.2-2':'it' }}</td>
+          <td class="number">€ {{ item.ristorno | number:'1.2-2':'it' }}</td>
+          <td class="number highlight-border-bg">€ {{ item.rErogato }}</td>
+          <td class="number highlight-yellow-bg">€ {{ item.rACedolino | number:'1.0-0':'it' }}</td>
+          <td class="number highlight-purple-bg">€ {{ item.rNettiACapitale | number:'1.0-0':'it' }}</td>
+          <td class="number highlight-green-bg">€ {{ item.rLordi | number:'1.0-0':'it' }}</td>
+          <td class="number">€ {{ item.ritenuta | number:'1.2-2':'it' }}</td>
+        </tr>
+        
+        <!-- Total Row -->
+        <tr class="total-row">
+          <td>
+            <div class="status-indicator">
+              <span class="dot"></span>
+              Totale complessivo
+            </div>
+          </td>
+          <td></td>
+          <td></td>
+          <td class="number">{{ getTotalOrePresenza() | number:'1.2-2':'it' }}</td>
+          <td class="number">{{ getTotalSocioDaGiorni() }}</td>
+          <td class="number">€ {{ getTotalImponibile() | number:'1.2-2':'it' }}</td>
+          <td class="number">€ {{ getTotalRCalcolato() | number:'1.2-2':'it' }}</td>
+          <td class="number highlight-red-bg">€ {{ getTotalMax() | number:'1.2-2':'it' }}</td>
+          <td class="number">€ {{ getTotalRistorno() | number:'1.2-2':'it' }}</td>
+          <td class="number highlight-border-bg">€ {{ getTotalRErogato() }}</td>
+          <td class="number highlight-yellow-bg">€ {{ getTotalRACedolino() | number:'1.0-0':'it' }}</td>
+          <td class="number highlight-purple-bg">€ {{ getTotalRNettiACapitale() | number:'1.0-0':'it' }}</td>
+          <td class="number highlight-green-bg">€ {{ getTotalRLordi() | number:'1.0-0':'it' }}</td>
+          <td class="number">€ {{ getTotalRitenuta() | number:'1.2-2':'it' }}</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <!-- Controlli di Paginazione -->
+    <div class="pagination-container">
+      <div class="pagination-info">
+        <span>Mostrando {{ (currentPage - 1) * itemsPerPage + 1 }} - {{ Math.min(currentPage * itemsPerPage, filteredData.length) }} di {{ filteredData.length }} risultati</span>
+      </div>
+      <div class="pagination-controls">
+        <button 
+          class="pagination-btn" 
+          [disabled]="currentPage === 1" 
+          (click)="goToPreviousPage()">
+          ‹ Precedente
+        </button>
+        
+        <button 
+          *ngFor="let page of pageNumbers" 
+          class="pagination-btn" 
+          [class.active]="page === currentPage"
+          (click)="goToPage(page)">
+          {{ page }}
+        </button>
+        
+        <button 
+          class="pagination-btn" 
+          [disabled]="currentPage === totalPages" 
+          (click)="goToNextPage()">
+          Successiva ›
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

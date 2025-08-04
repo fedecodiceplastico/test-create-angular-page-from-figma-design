@@ -1,15 +1,32 @@
 <div class="app-container">
-  <app-header [driver]="driver"></app-header>
-  
-  <app-navigation-tabs 
-    [activeTab]="activeTab" 
-    (tabChange)="onTabChange($event)">
-  </app-navigation-tabs>
-  
-  <app-giro-info 
-    [giroInfo]="giroInfo" 
-    (toggleChange)="onToggleChange($event)">
-  </app-giro-info>
-  
-  <app-timeline [requests]="(requests$ | async) || []"></app-timeline>
+  <!-- Navigation Bar (only shown when not on home) -->
+  <div class="top-nav" *ngIf="currentSection !== 'home'">
+    <button class="back-button" (click)="onBackToHome()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5"/>
+        <path d="M12 19l-7-7 7-7"/>
+      </svg>
+      Torna alla Home
+    </button>
+    
+    <div class="section-title">
+      <span *ngIf="currentSection === 'giri'">Gestione Giri</span>
+      <span *ngIf="currentSection === 'ristorni'">Calcola Ristorni</span>
+    </div>
+  </div>
+
+  <!-- Content based on current section -->
+  <div class="content-wrapper">
+    <!-- Home Page -->
+    <app-home 
+      *ngIf="currentSection === 'home'" 
+      (navigate)="onNavigate($event)">
+    </app-home>
+    
+    <!-- Giri Section -->
+    <app-giri-section *ngIf="currentSection === 'giri'"></app-giri-section>
+    
+    <!-- Ristorni Section -->
+    <app-ristorni-table *ngIf="currentSection === 'ristorni'"></app-ristorni-table>
+  </div>
 </div>

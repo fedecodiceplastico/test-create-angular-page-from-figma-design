@@ -1,48 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
 
-import { HeaderComponent } from './components/header/header';
-import { NavigationTabsComponent } from './components/navigation-tabs/navigation-tabs';
-import { GiroInfoComponent } from './components/giro-info/giro-info';
-import { TimelineComponent } from './components/timeline/timeline';
-
-import { GiroDataService } from './services/giro-data.service';
-import { Request, Driver, GiroInfo } from './models/request.model';
+import { HomeComponent } from './components/home/home';
+import { GiriSectionComponent } from './components/giri-section/giri-section';
+import { RistorniTableComponent } from './components/ristorni-table/ristorni-table';
 
 @Component({
   selector: 'app-root',
   imports: [
     CommonModule,
-    HeaderComponent,
-    NavigationTabsComponent,
-    GiroInfoComponent,
-    TimelineComponent
+    HomeComponent,
+    GiriSectionComponent,
+    RistorniTableComponent
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App implements OnInit {
-  driver: Driver;
-  giroInfo: GiroInfo;
-  requests$: Observable<Request[]>;
-  activeTab: string = 'calendar';
-
-  constructor(private giroDataService: GiroDataService) {
-    this.driver = this.giroDataService.getDriver();
-    this.giroInfo = this.giroDataService.getGiroInfo();
-    this.requests$ = this.giroDataService.getRequests();
-  }
+  currentSection: 'home' | 'giri' | 'ristorni' = 'home';
 
   ngOnInit() {
     // Initialization logic if needed
   }
 
-  onTabChange(tab: string) {
-    this.activeTab = tab;
+  onNavigate(section: string) {
+    this.currentSection = section as 'home' | 'giri' | 'ristorni';
   }
 
-  onToggleChange(showCompleted: boolean) {
-    this.giroDataService.updateShowCompleted(showCompleted);
+  onBackToHome() {
+    this.currentSection = 'home';
   }
 }
